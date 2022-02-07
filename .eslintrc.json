@@ -1,0 +1,26 @@
+{
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "plugin:security/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["security", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "no-console": "off",
+    "func-names": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off",
+    "security/detect-object-injection": "off",
+    "security/detect-non-literal-require": "off",
+    "import/no-dynamic-require": "off",
+    "global-require": "off",
+    "security/detect-non-literal-fs-filename": "off",
+    "class-methods-use-this": "off"
+  }
+}
