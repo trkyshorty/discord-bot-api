@@ -4,29 +4,26 @@
  * Module dependencies.
  */
 
-const app = require('../app');
 const debug = require('debug')('discord-bot-api:server');
 const http = require('http');
-
+const app = require('../index');
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
-  const port = parseInt(val, 10);
+const port = process.env.PORT || 3000;
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+/**
+ * Get port from environment and store in Express.
+ */
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+app.set('port', port);
 
-  return false;
-}
+/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
 
 /**
  * Event listener for HTTP server "error" event.
@@ -38,15 +35,16 @@ function onError(error) {
   }
 
   const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
-
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error(`${bind} requires elevated privileges`);
       process.exit(1);
+    // eslint no-fallthrough: "error"
     case 'EADDRINUSE':
       console.error(`${bind} is already in use`);
       process.exit(1);
+    // eslint no-fallthrough: "error"
     default:
       throw error;
   }
@@ -61,19 +59,6 @@ function onListening() {
   const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 }
-
-/**
- * Get port from environment and store in Express.
- */
-
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

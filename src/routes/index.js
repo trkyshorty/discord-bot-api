@@ -1,9 +1,10 @@
 const express = require('express');
+
 const router = express.Router();
 
-/* GET users listing. */
+/* GET home page. */
 router.get('/', (req, res, next) => {
-  res.send('respond users');
+  res.render('index', { title: 'Express' });
 });
 
 module.exports = router;
