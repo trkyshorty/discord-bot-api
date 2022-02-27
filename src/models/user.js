@@ -18,12 +18,22 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    guilds: [{ id: { type: String, ref: 'Guild' } }],
+    guilds: [{ id: { type: String } }],
   },
   {
     timestamps: false,
   }
 );
+
+userSchema.virtual('guild', {
+  ref: 'Guild',
+  localField: 'guilds.id',
+  foreignField: 'guild_id',
+  // justOne: true,
+});
+
+userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true });
 
 const User = mongoose.model('User', userSchema);
 
