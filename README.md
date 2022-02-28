@@ -1,1 +1,3 @@
-# discord-bot-api
+# Discord Bot Api
+
+- Currently is under development
